@@ -15,10 +15,16 @@ It is possible to upload .csv files of the unique tf-idf values for labels (if y
 ### Features:
 
 Based on the embeddings and a similarty metric (cosine-similarity or L2 Norm), the Nearest Neighbor (KNN) graphs of the embeddings are created. The Recursive KNN
-graphs are then created by using the KNN method recursively and finding the nearest neighbors of the neighbors of the original node and continuing the same process. A parameter called nHops in this project defines the number of times that this process is repeated (including the first KNN). The features below are derived from the #### Recursive KNNs:
+graphs are then created by using the KNN method recursively and finding the nearest neighbors of the neighbors of the original node and continuing the same process. A parameter called nHops in this project defines the number of times that this process is repeated (including the first KNN). The features below are derived from the Recursive KNNs:
 * Number of neighbors in the whole levels of each node
 * Mean of cos-similarities in the whole levels of each node
 * Number of categories in the whole levels of each node
 
 Chosen subgraphs and dense clusters of the KNN graph are also investigated to discover more useful features. To detect communities, Networkx library is used. 
 * networkx.greedy_modularity_communities(G, weight=similarity, resolution=1, cutoff=1, best_n=None) [Networkx](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.modularity_max.greedy_modularity_communities.html#rce363827c0a4-2)
+
+
+### Result:
+The tool is tested with a sample of [Amazon Cat-13k](http://manikvarma.org/downloads/XC/XMLRepository.html). Three different models were used to achieve the embeddings of the sample. Below is the result of the experiments on all the nodes of Recursive KNN graphs, the top 5% of the neighbors with the most and least neighbors in their neighborhood:
+
+![](https://myoctocat.com/assets/images/base-octocat.svg)

@@ -16,4 +16,4 @@ graphs are then created by using the KNN method recursively and finding the near
 * Number of categories in the whole levels of each node
 
 Chosen subgraphs and dense clusters of the KNN graph are also investigated to discover more useful features. To detect communities, Networkx library is used. 
-* networkx.greedy_modularity_communities(G, weight=similarity, resolution=1, cutoff=1, best_n=None) [Networkx]([https://pages.github.com/](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.modularity_max.greedy_modularity_communities.html#rce363827c0a4-2))
+* networkx.greedy_modularity_communities(G, weight=similarity, resolution=1, cutoff=1, best_n=None) [Networkx](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.modularity_max.greedy_modularity_communities.html#rce363827c0a4-2)

@@ -27,4 +27,9 @@ Chosen subgraphs and dense clusters of the KNN graph are also investigated to di
 ### Result:
 The tool is tested with a sample of [Amazon Cat-13k](http://manikvarma.org/downloads/XC/XMLRepository.html). Three different models were used to achieve the embeddings of the sample. Below is the result of the experiments on all the nodes of Recursive KNN graphs, the top 5% of the neighbors with the most and least neighbors in their neighborhood:
 
-![](/Results/Plots Cos.png)
+![](/Results/PlotsCos.png)
+*The ability of each feature to distinguish the embeddings is illustrated in the histograms of the documents w.r.t the various features*
+
+![](/Results/CommunitiesFeatures.png)
+*Scatter plots of the communities of different KNN graphs*
+

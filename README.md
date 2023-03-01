@@ -27,4 +27,4 @@ Chosen subgraphs and dense clusters of the KNN graph are also investigated to di
 ### Result:
 The tool is tested with a sample of [Amazon Cat-13k](http://manikvarma.org/downloads/XC/XMLRepository.html). Three different models were used to achieve the embeddings of the sample. Below is the result of the experiments on all the nodes of Recursive KNN graphs, the top 5% of the neighbors with the most and least neighbors in their neighborhood:
 
-![](https://myoctocat.com/assets/images/base-octocat.svg)
+![](/Results/Plots Cos.png)

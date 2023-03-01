@@ -33,5 +33,5 @@ The tool is tested with a sample of [Amazon Cat-13k](http://manikvarma.org/downl
 ![](/Results/CommunitiesFeatures.png)
 *Scatter plots of the communities of different KNN graphs.*
 
-![](/Results/Table.png)
-*The embeddings typically yield a varying number of communities. This insight helps us in our future work and scoring methods because it provides a more thorough understanding of model training.*
+<img src="/Results/Table.png" width="400" height="200">
+The embeddings typically yield a varying number of communities. This insight helps us in our future work and scoring methods because it provides a more thorough understanding of model training.

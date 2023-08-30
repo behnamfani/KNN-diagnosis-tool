@@ -1,7 +1,7 @@
 # KNN-diagnosis-tool
-A tool to distinguish different embeddings of a same corpus using different features
+A tool to distinguish different embeddings of the same corpus using different features. Complete [report](Final-Report-Behnam_Fanitabasi.pdf)
 
-Neural natural language models are drawing more and more attention every day as they aim to give computers the ability to interpret human words and documents. Yet as there are more and more models available, it gets more challenging to select the optimal one for a certain task. This is a developing project where various features from datasets are derived and different  vector embeddings would be compared with eachother based on this features. These features and their correlations with the performance of each embedding would make it easier to compare multiple embeddings of the same corpus.
+Neural natural language models are drawing more and more attention every day as they aim to give computers the ability to interpret human words and documents. Yet as there are more and more models available, it gets more challenging to select the optimal one for a certain task. This is a developing project where various features from datasets are derived and different  vector embeddings would be compared with eachother based on these features. These features and their correlations with the performance of each embedding would make it easier to compare multiple embeddings of the same corpus.
 
 #### Input format (like the files in the Input folder):
 * A .txt file where each line represents a document (text).
@@ -14,8 +14,8 @@ It is possible to upload .csv files of the unique tf-idf values for labels (if y
 
 ### Features:
 
-Based on the embeddings and a similarty metric (cosine-similarity or L2 Norm), the Nearest Neighbor (KNN) graphs of the embeddings are created. The Recursive KNN
-graphs are then created by using the KNN method recursively and finding the nearest neighbors of the neighbors of the original node and continuing the same process. A parameter called nHops in this project defines the number of times that this process is repeated (including the first KNN). The features below are derived from the Recursive KNNs:
+Based on the embeddings and a similarity metric (cosine-similarity or L2 Norm), the Nearest Neighbor (KNN) graphs of the embeddings are created. The Recursive KNN
+graphs are then created by using the KNN method recursively and finding the nearest neighbors of the neighbors of original node and continuing the same process. A parameter called nHops in this project defines the number of times that this process is repeated (including the first KNN). The features below are derived from the Recursive KNNs:
 * Number of neighbors in the whole levels of each node
 * Mean of cos-similarities in the whole levels of each node
 * Number of categories in the whole levels of each node

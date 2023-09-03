@@ -1,7 +1,7 @@
 # KNN-diagnosis-tool
 A tool to distinguish different embeddings of the same corpus using different features. Complete [report](Final-Report-Behnam_Fanitabasi.pdf)
 
-Neural natural language models are drawing more and more attention every day as they aim to give computers the ability to interpret human words and documents. Yet as there are more and more models available, it gets more challenging to select the optimal one for a certain task. This is a developing project where various features from datasets are derived and different  vector embeddings would be compared with eachother based on these features. These features and their correlations with the performance of each embedding would make it easier to compare multiple embeddings of the same corpus.
+Neural natural language models are drawing more and more attention every day as they aim to give computers the ability to interpret human words and documents. Yet as there are more and more models available, it gets more challenging to select the optimal one for a certain task. This is a developing project where various features from datasets are derived and different  vector embeddings would be compared with each other based on these features. These features and their correlations with the performance of each embedding would make it easier to compare multiple embeddings of the same corpus.
 
 #### Input format (like the files in the Input folder):
 * A .txt file where each line represents a document (text).
@@ -34,4 +34,5 @@ The tool is tested with a sample of [Amazon Cat-13k](http://manikvarma.org/downl
 *Scatter plots of the communities of different KNN graphs.*
 
 <img src="/Results/Table.png" width="400" height="200">
-The embeddings typically yield a varying number of communities. This insight helps us in our future work and scoring methods because it provides a more thorough understanding of model training.
+The findings of the lab demonstrated that the mean of cos-similarity is more effective than features derived from number neighbors or common categories at differentiating between different vector embeddings
+Also the embeddings typically yield a varying number of communities. This insight helps us in our future work and scoring methods because it provides a more thorough understanding of model training. T

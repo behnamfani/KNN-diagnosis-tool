@@ -8,8 +8,9 @@ Our hypothesis is when the perplexity value increases, the number of common key 
 will decrease, and conversely, when the perplexity value decreases, the number of common
 key phrases will increase.
 
-![](/Experiment%20with%20key-phrases/RKNN.png)
-
+<p align="center" width="100%">
+    <img width="50%" src="/Experiment%20with%20key-phrases/RKNN.png"> 
+</p>
 
 Example of a node in Recursive KNN with K=4. Each node is a document with the number as an identifier. Some Recursive KNN graph nodes are repeated, 
 as indicated by their colors. Each node has a set of key-phrases. We expect a decent model to contain a few unique nodes in the neighborhood of each 

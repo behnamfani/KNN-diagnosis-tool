@@ -3,28 +3,30 @@ import networkx as nx
 import math
 from icecream import ic
 import operator
+import pandas as pd
 
+
+# # ------------------ Extractor --------------------
 class Extractor:
 
     def extract(self, text, POS_KEPT):
         nlp = spacy.load("en_core_web_sm")
-        nlp.max_length = 12838008 # or even higher
+        nlp.max_length = 15000000 
         doc = nlp(text)
-
+	
         lemma_graph = nx.Graph()
         seen_lemma = {}
 
-        for sent in doc.sents:
-            self.link_sentence(doc, sent, lemma_graph, seen_lemma,POS_KEPT)
-
-
+        for sent in doc.sents:        
+            self.link_sentence(doc, sent, lemma_graph, seen_lemma, POS_KEPT)
+        
+        
         labels = {}
         keys = list(seen_lemma.keys())
 
         for i in range(len(seen_lemma)):
             labels[i] = keys[i][0].lower()
-
-  
+            
         # import matplotlib.pyplot as plt
 
         # fig = plt.figure(figsize=(9, 9))
@@ -42,7 +44,7 @@ class Extractor:
         counts = {}
 
         for chunk in doc.noun_chunks:
-            self.collect_phrases(doc,seen_lemma, ranks, chunk, phrases, counts)
+            self.collect_phrases(doc, seen_lemma, ranks, chunk, phrases, counts)
 
         min_phrases = {}
 
@@ -54,29 +56,21 @@ class Extractor:
             count = counts[compound_key]
             
             min_phrases[phrase] = (rank, count)
-        
-        # print("------final --------------")
-        # ic(sorted(min_phrases.items(), key=lambda x: x[1][0], reverse=True))
-
-        # for phrase, (rank, count) in sorted(min_phrases.items(), key=lambda x: x[1][0], reverse=True):
-        #     ic(phrase, count, rank)
-        #     ic(phrase)
-        
-        # for node_id, rank in sorted(ranks.items(), key=lambda x: x[1], reverse=True):
-        #     ic(labels[node_id], rank)
 
         return sorted(min_phrases.items(), key=lambda x: x[1][0], reverse=True)
+            
+            
+ 
+    def increment_edge (self, graph, node0, node1):
     
-    def increment_edge (self,graph, node0, node1):
-        # ic(node0, node1)
-        
         if graph.has_edge(node0, node1):
             graph[node0][node1]["weight"] += 1.0
         else:
             graph.add_edge(node0, node1, weight=1.0)
 
-    
-    def link_sentence (self, doc, sent, lemma_graph, seen_lemma,POS_KEPT):
+
+  
+    def link_sentence (self, doc, sent, lemma_graph, seen_lemma, POS_KEPT):
         visited_tokens = []
         visited_nodes = []
 
@@ -92,7 +86,7 @@ class Extractor:
                     seen_lemma[key].add(token.i)
 
                 node_id = list(seen_lemma.keys()).index(key)
-
+                
                 if not node_id in lemma_graph:
                     lemma_graph.add_node(node_id)
 
@@ -112,8 +106,9 @@ class Extractor:
                 visited_tokens.append(token.i)
                 visited_nodes.append(node_id)
 
+
     
-    def collect_phrases (self, doc,seen_lemma, ranks, chunk, phrases, counts):
+    def collect_phrases (self, doc, seen_lemma, ranks, chunk, phrases, counts):
         chunk_len = chunk.end - chunk.start
         sq_sum_rank = 0.0
         non_lemma = 0
@@ -133,18 +128,17 @@ class Extractor:
             else:
                 non_lemma += 1
         
-        # although the noun chunking is greedy, we discount the ranks using a
-        # point estimate based on the number of non-lemma tokens within a phrase
+        # Discount the ranks using a point estimate based on the number of non-lemma tokens within a phrase
         non_lemma_discount = chunk_len / (chunk_len + (2.0 * non_lemma) + 1.0)
 
-        # use root mean square (RMS) to normalize the contributions of all the tokens
+        # Normalize the contributions of all the tokens using RMS
         phrase_rank = math.sqrt(sq_sum_rank / (chunk_len + non_lemma))
         phrase_rank *= non_lemma_discount
 
-        # remove spurious punctuation
+        # Remove spurious punctuation
         phrase = chunk.text.lower().replace("'", "")
 
-        # create a unique key for the the phrase based on its lemma components
+        # Create a unique key for the the phrase based on its lemma components
         compound_key = tuple(sorted(list(compound_key)))
         
         if not compound_key in phrases:
@@ -157,12 +151,21 @@ class Extractor:
         # ic(phrase_rank, chunk.text, chunk.start, chunk.end, chunk_len, counts[compound_key])
 
 
-
-# # Example usage:
-# if __name__ == "__main__":
-#     data = [1, 2, 3, 4, 5]
-#     extractor = Extractor()
-#     text = "Compatibility of systems of linear constraints over the set of natural numbers. Criteria of compatibility of a system of linear Diophantine equations, strict inequations, and nonstrict inequations are considered. Upper bounds for components of a minimal set of solutions and algorithms of construction of minimal generating sets of solutions for all types of systems are given. These criteria and the corresponding algorithms for constructing a minimal supporting set of solutions can be used in solving all the considered types systems and systems of mixed types."
-#     POS_KEPT = ["ADJ", "NOUN", "PROPN", "VERB"]
-#     result = extractor.extract(text,POS_KEPT)
-#     print(result)  # Output: [1, 2, 3, 4, 5]
+# ------------------ Main --------------------
+# Read Data
+# text = "The UEFA Champions League (abbreviated as UCL, or sometimes, UEFA CL) is an annual club association football competition organised by the Union of European Football Associations (UEFA) and contested by top-division European clubs, deciding the competition winners through a round robin group stage to qualify for a double-legged knockout format, and a single leg final. It is the most-watched club competition in the world and the third most-watched football competition overall, behind only the UEFA European Championship and the FIFA World Cup. It is one of the most prestigious football tournaments in the world and the most prestigious club competition in European football, played by the national league champions (and, for some nations, one or more runners-up) of their national associations."
+text = ''
+with open(f'/home/IAIS/bfanitabas/Project/Dataset/AmazonCat-13K.raw/Sample_Test.txt', 'r') as f:
+	for i in f.readlines():
+		text = text + i + ' '
+f.close()
+# Extract keyphrases
+extractor = Extractor()
+POS_KEPT = ["ADJ", "NOUN", "PROPN", "VERB"]
+result = extractor.extract(text, POS_KEPT)
+# Save results in a dataframe
+df = pd.DataFrame(result, columns=['Phrase', 'Mix'])
+df[['Score', 'Count']] = pd.DataFrame(df['Mix'].tolist())
+df.drop(columns=['Mix'], inplace=True)
+# print(df)
+df.to_csv('/home/IAIS/bfanitabas/Project/Results/keyphrases.csv', index=False)

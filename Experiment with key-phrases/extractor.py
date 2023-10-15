@@ -1,4 +1,5 @@
 import spacy
+spacy.prefer_gpu()
 import networkx as nx
 import math
 from icecream import ic

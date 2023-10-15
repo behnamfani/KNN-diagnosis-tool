@@ -12,7 +12,7 @@ class Extractor:
 
     def extract(self, text:str, POS_KEPT:list)->list:
         nlp = spacy.load("en_core_web_sm")
-        nlp.max_length = 15000000 
+        nlp.max_length = 10000000 
         doc = nlp(text)
 	
         lemma_graph = nx.Graph()

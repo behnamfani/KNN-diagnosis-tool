@@ -156,8 +156,7 @@ class Extractor:
 # text = "The UEFA Champions League (abbreviated as UCL, or sometimes, UEFA CL) is an annual club association football competition organised by the Union of European Football Associations (UEFA) and contested by top-division European clubs, deciding the competition winners through a round robin group stage to qualify for a double-legged knockout format, and a single leg final. It is the most-watched club competition in the world and the third most-watched football competition overall, behind only the UEFA European Championship and the FIFA World Cup. It is one of the most prestigious football tournaments in the world and the most prestigious club competition in European football, played by the national league champions (and, for some nations, one or more runners-up) of their national associations."
 text = ''
 with open(f'/home/IAIS/bfanitabas/Project/Dataset/AmazonCat-13K.raw/Sample_Test.txt', 'r') as f:
-	for i in f.readlines():
-		text = text + i + ' '
+	text = f.read().replace('\n', ' ')
 f.close()
 # Extract keyphrases
 extractor = Extractor()

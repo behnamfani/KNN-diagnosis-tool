@@ -9,7 +9,7 @@ import pandas as pd
 # # ------------------ Extractor --------------------
 class Extractor:
 
-    def extract(self, text, POS_KEPT):
+    def extract(self, text:str, POS_KEPT:list)->list:
         nlp = spacy.load("en_core_web_sm")
         nlp.max_length = 15000000 
         doc = nlp(text)

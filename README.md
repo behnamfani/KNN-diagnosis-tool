@@ -34,5 +34,9 @@ The tool is tested with a sample of [Amazon Cat-13k](http://manikvarma.org/downl
 *Scatter plots of the communities of different KNN graphs.*
 
 <img src="/Results/Table.png" width="400" height="200">
+
+After having the communities, some random communities (usually from the middle sizes, not the largest or smallest) from different language models are selected and the score plots are obtained. The scores indicate the average number of common labels (categories) between nodes and their K neighbors in the KNN environment. The different scores for various communities and language models are shown.  
+![](/Results/scores.png)
+
 The findings of the lab demonstrated that the mean of cos-similarity is more effective than features derived from number neighbors or common categories at differentiating between different vector embeddings
 Also the embeddings typically yield a varying number of communities. This insight helps us in our future work and scoring methods because it provides a more thorough understanding of model training. T

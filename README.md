@@ -39,4 +39,4 @@ After having the communities, some random communities (usually from the middle s
 ![](/Results/scores.png)
 
 The findings of the lab demonstrated that the mean of cos-similarity is more effective than features derived from number neighbors or common categories at differentiating between different vector embeddings
-Also the embeddings typically yield a varying number of communities. This insight helps us in our future work and scoring methods because it provides a more thorough understanding of model training. T
+Also the embeddings typically yield a varying number of communities. This insight helps us in our future work and scoring methods because it provides a more thorough understanding of model training. 

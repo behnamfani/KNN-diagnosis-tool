@@ -1,42 +1,63 @@
-# KNN-diagnosis-tool
-A tool to distinguish different embeddings of the same corpus using different features. Complete [report](Final-Report-Behnam_Fanitabasi.pdf)
+# KNN Diagnosis Tool for Embedding Comparison
 
-Neural natural language models are drawing more and more attention every day as they aim to give computers the ability to interpret human words and documents. Yet as there are more and more models available, it gets more challenging to select the optimal one for a certain task. This is a developing project where various features from datasets are derived and different  vector embeddings would be compared with each other based on these features. These features and their correlations with the performance of each embedding would make it easier to compare multiple embeddings of the same corpus.
+A tool to **distinguish and compare different embeddings** of the same corpus using **K-Nearest Neighbors (KNN) graphs** and derived features. This project helps select the optimal embedding model for a given task by analyzing feature correlations with performance.
 
-#### Input format (like the files in the Input folder):
-* A .txt file where each line represents a document (text).
-* A .txt file where each line represents the labels of the corresponding document (If available). It is possible to do the experiments without labels or use the keywords of the documents as their labels.
-* Various .txt files where each line represents the embeddings of the corresponding document. It is also possible to pass the pickle files of the embeddings where they have been stored in numpy.array format.
+📄 **[Full Report](Final-Report-Behnam_Fanitabasi.pdf)**
 
-#### External files (optional):
-It is possible to upload .csv files of the unique tf-idf values for labels (if you are giving the labels as well) and/or a dataframe in which element (i,j) is the hamming distance between document i and j based on the characteristic vectors of these documents w.r.t labels. You can also have the program calculate these dataframes for you.
+---
 
+## 📌 Overview
+Neural natural language models are increasingly important for interpreting human text. However, selecting the best model for a specific task is challenging. This tool **compares multiple embeddings** of the same corpus by deriving and analyzing features from **KNN graphs** and **recursive KNN graphs**.
 
-### Features:
+---
 
-Based on the embeddings and a similarity metric (cosine-similarity or L2 Norm), the Nearest Neighbor (KNN) graphs of the embeddings are created. The Recursive KNN
-graphs are then created by using the KNN method recursively and finding the nearest neighbors of the neighbors of original node and continuing the same process. A parameter called nHops in this project defines the number of times that this process is repeated (including the first KNN). The features below are derived from the Recursive KNNs:
-* Number of neighbors in the whole levels of each node
-* Mean of cos-similarities in the whole levels of each node
-* Number of categories in the whole levels of each node
+## 📥 Input Format
+The tool accepts the following input files (see the `Input` folder for examples):
+- **Documents**: A `.txt` file where each line represents a document.
+- **Labels** (optional): A `.txt` file where each line represents the label of the corresponding document. Labels can be keywords or omitted.
+- **Embeddings**: `.txt` or `.pickle` files where each line represents the embedding of a document (stored as `numpy.array`).
 
-Chosen subgraphs and dense clusters of the KNN graph are also investigated to discover more useful features. To detect communities, Networkx library is used. 
-* networkx.greedy_modularity_communities(G, weight=similarity, resolution=1, cutoff=1, best_n=None) [Networkx](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.modularity_max.greedy_modularity_communities.html#rce363827c0a4-2)
+### Optional External Files
+- **TF-IDF values**: A `.csv` file of unique TF-IDF values for labels.
+- **Hamming Distance Matrix**: A dataframe where element `(i,j)` is the Hamming distance between document `i` and `j` based on label characteristic vectors. The tool can also calculate these matrices for you.
 
+---
 
-### Result:
-The tool is tested with a sample of [Amazon Cat-13k](http://manikvarma.org/downloads/XC/XMLRepository.html). Three different models were used to achieve the embeddings of the sample. Below is the result of the experiments on all the nodes of Recursive KNN graphs, the top 5% of the neighbors with the most and least neighbors in their neighborhood:
+## ✨ Features
+The tool constructs **KNN graphs** using **cosine similarity** or **L2 norm** and derives the following features from **recursive KNN graphs** (defined by the `nHops` parameter):
+- **Number of neighbors** across all levels of each node.
+- **Mean cosine similarity** across all levels of each node.
+- **Number of categories** across all levels of each node.
 
-![](/Results/PlotsCos.png)
-*The ability of each feature to distinguish the embeddings is illustrated in the histograms of the documents w.r.t the various features.*
+### Community Detection
+- Uses **NetworkX** to detect communities in the KNN graph:
+  ```python
+  networkx.greedy_modularity_communities(G, weight=similarity, resolution=1, cutoff=1, best_n=None)
+  ```
+  ([NetworkX Documentation](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.modularity_max.greedy_modularity_communities.html#rce363827c0a4-2))
 
-![](/Results/CommunitiesFeatures.png)
-*Scatter plots of the communities of different KNN graphs.*
+- Investigates **subgraphs** and **dense clusters** for additional insights.
 
-<img src="/Results/Table.png" width="400" height="200">
+---
 
-After having the communities, some random communities (usually from the middle sizes, not the largest or smallest) from different language models are selected and the score plots are obtained. The scores indicate the average number of common labels (categories) between nodes and their K neighbors in the KNN environment. The different scores for various communities and language models are shown.  
-![](/Results/scores.png)
+## 📊 Results
+The tool was tested on a sample of the **[Amazon Cat-13k dataset](http://manikvarma.org/downloads/XC/XMLRepository.html)** using three different embedding models.
 
-The findings of the lab demonstrated that the mean of cos-similarity is more effective than features derived from number neighbors or common categories at differentiating between different vector embeddings
-Also the embeddings typically yield a varying number of communities. This insight helps us in our future work and scoring methods because it provides a more thorough understanding of model training. 
+### Feature Distributions
+![Feature Histograms](Results/PlotsCos.png)
+*Histograms show the ability of each feature to distinguish between embeddings.*
+
+### Community Analysis
+![Community Scatter Plots](Results/CommunitiesFeatures.png)
+*Scatter plots of communities in different KNN graphs.*
+
+### Score Plots
+![Score Table](Results/Table.png)
+![Score Plots](Results/scores.png)
+*Scores represent the average number of common labels between nodes and their K neighbors in the KNN environment.*
+
+---
+
+## 🔍 Key Findings
+- **Mean cosine similarity** is the most effective feature for distinguishing between embeddings.
+- Different embeddings yield a **varying number of communities**, providing insights for future model training and scoring methods.

@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="pictures/RKNN_Logo.jpg" alt="Project Logo" width="250">
+</p>
+
 # KNN Diagnosis Tool for Embedding Comparison
 
 A tool to **distinguish and compare different embeddings** of the same corpus using **K-Nearest Neighbors (KNN) graphs** and derived features. This project helps select the optimal embedding model for a given task by analyzing feature correlations with performance.
